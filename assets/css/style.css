@@ -1,0 +1,152 @@
+/* assets/css/style.css */
+
+/* Ganti: Anda mungkin perlu mengimpor font pixelated di sini jika tidak menggunakan font bawaan */
+/* Misalnya, dari Google Fonts: @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap'); */
+:root {
+    --color-primary: #808080; /* Abu-abu */
+    --color-secondary: #C0C0C0; /* Abu-abu muda */
+    --color-background: #FFFFFF; /* Putih */
+    --color-text: #000000; /* Hitam */
+    --color-accent: #00A300; /* Hijau (opsional, untuk tombol/highlight) */
+    --pixel-border: 4px; /* Ukuran border pixel */
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', monospace; /* Ganti dengan font pixel jika ada */
+    background-color: var(--color-background);
+    color: var(--color-text);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Header/Top Bar (Digunakan di homepage.php dan halaman lain setelah login) */
+.top-bar {
+    width: 100%;
+    background-color: var(--color-secondary);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: var(--pixel-border) solid var(--color-text);
+}
+
+.top-bar-logo {
+    font-weight: bold;
+    font-size: 24px;
+    /* Ganti: Anda bisa mengganti ini dengan tag <img> untuk logo */
+    /* .top-bar-logo img { height: 30px; } */
+}
+
+.top-bar a, .top-bar button {
+    color: var(--color-text);
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+/* Tombol Pixel-Art Style */
+.pixel-button {
+    background-color: var(--color-secondary);
+    border: var(--pixel-border) solid var(--color-text);
+    padding: 10px 20px;
+    font-family: inherit;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.1s;
+    text-transform: uppercase;
+}
+
+.pixel-button:hover {
+    background-color: var(--color-primary);
+}
+
+/* Kontainer Utama */
+.container {
+    padding: 20px;
+    width: 100%;
+    max-width: 800px; /* Lebar maksimal konten */
+    margin: 20px auto;
+}
+
+/* Form Style */
+.pixel-form input[type="text"],
+.pixel-form input[type="email"],
+.pixel-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: var(--color-background);
+    border: var(--pixel-border) solid var(--color-text);
+    font-family: inherit;
+    font-size: 16px;
+}
+
+.card-section {
+    background-color: var(--color-secondary);
+    border: var(--pixel-border) solid var(--color-text);
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.1s;
+}
+
+.card-section:hover {
+    background-color: var(--color-primary);
+}
+
+/* Map Accordion Style (untuk maps.php) */
+.map-card {
+    margin-bottom: 15px;
+    border: var(--pixel-border) solid var(--color-text);
+    background-color: var(--color-secondary);
+}
+
+.map-header {
+    padding: 15px;
+    background-color: var(--color-primary);
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.map-content {
+    display: none;
+    padding: 20px;
+    background-color: var(--color-background); /* Ganti: Background maps akan berubah */
+}
+
+.map-content.active {
+    display: block;
+}
+
+.map-details {
+    display: flex;
+    gap: 20px;
+}
+
+.map-image-placeholder {
+    width: 50%;
+    min-height: 200px;
+    background-color: var(--color-secondary);
+    border: 2px solid var(--color-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.map-activities ul {
+    list-style-type: none;
+    padding: 0;
+}
