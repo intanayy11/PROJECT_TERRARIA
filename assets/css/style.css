@@ -1,78 +1,238 @@
 /* assets/css/style.css */
 
-/* Ganti: Anda mungkin perlu mengimpor font pixelated di sini jika tidak menggunakan font bawaan */
-/* Misalnya, dari Google Fonts: @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 :root {
-    --color-primary: #808080; /* Abu-abu */
-    --color-secondary: #C0C0C0; /* Abu-abu muda */
-    --color-background: #FFFFFF; /* Putih */
-    --color-text: #000000; /* Hitam */
-    --color-accent: #00A300; /* Hijau (opsional, untuk tombol/highlight) */
-    --pixel-border: 4px; /* Ukuran border pixel */
+    --color-primary: #2E8B57; /* Hijau gelap Terraria */
+    --color-secondary: #3CB371; /* Hijau sedang */
+    --color-background: #F5F5DC; /* Beige */
+    --color-text: #2F4F2F; /* Hijau gelap teks */
+    --color-accent: #FFD700; /* Emas */
+    --pixel-border: 4px;
 }
 
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
 body {
-    font-family: 'Courier New', monospace; /* Ganti dengan font pixel jika ada */
-    background-color: var(--color-background);
+    min-height: 100vh; 
+    display: flex;
+    background: linear-gradient(135deg, #2E8B57 0%, #3CB371 50%, #F5F5DC 100%);
+    background-attachment: fixed;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    font-family: 'Press Start 2P', cursive; 
+    padding: 90px 20px 20px; /* Padding top untuk navbar */
     color: var(--color-text);
-    margin: 0;
-    padding: 0;
+}
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background: rgba(245, 245, 220, 0.9);
+    border: var(--pixel-border) solid var(--color-text);
+    box-shadow: 4px 4px 0 var(--color-text);
+    border-radius: 8px;
+}
+
+h1, h2, h3 {
+    font-family: 'Press Start 2P', cursive;
+    color: var(--color-text);
+    text-shadow: 2px 2px 0 var(--color-accent);
+}
+.container_home {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    margin-top: 20px;
+    justify-content: center;
+    background: rgba(245, 245, 220, 0.9);
+    padding: 20px;
+    border: var(--pixel-border) solid var(--color-text);
+    box-shadow: 4px 4px 0 var(--color-text);
+    border-radius: 8px;
+}
+.container-index {
+    width: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    min-height: 100vh;
 }
+.container-body-home {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    width: 100%;
+    max-width: 1200px;
+}
+.spasi-vertical {
+    display: flex;
+    justify-content: center;
+    
+}
+.logo {
+    width: 100%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.logo img {
+    display: block;
+    margin: 0 auto;
+}
+.logo-index {
+    margin-bottom: 40px;
+    width: 120px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.button_container {
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    width: 120px;
+    height: auto;
+    transition: transform 0.3s ease;
+    transform: scale(1.05);
+    margin-top: 10px;
+    gap: 60px;
+}
+
+
+.button-container {
+    display: flex;
+    gap: 100px;
+    margin-top: 20px;
+    width: 100%;
+    justify-content: center;
+    scale: 0.8;
+}
+
+.button {
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: block;
+    width: 100%;
+    max-width: 300px;
+}
+
+.button_img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.button_start {
+    display: inline-block;
+    padding: 15px 30px;
+    font-size: 16px;
+    font-family: 'Press Start 2P', cursive;
+    color: var(--color-text);
+    background-color: var(--color-primary);
+    border: var(--pixel-border) solid var(--color-text);
+    box-shadow: 4px 4px 0 var(--color-text);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
 
 /* Header/Top Bar (Digunakan di homepage.php dan halaman lain setelah login) */
 .top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 70px;
     width: 100%;
-    background-color: var(--color-secondary);
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    background: rgba(46, 139, 87, 0.8); /* Transparan hijau */
+    backdrop-filter: blur(10px); /* Blur effect untuk modern */
     border-bottom: var(--pixel-border) solid var(--color-text);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    z-index: 999;
 }
 
 .top-bar-logo {
-    font-weight: bold;
-    font-size: 24px;
-    /* Ganti: Anda bisa mengganti ini dengan tag <img> untuk logo */
-    /* .top-bar-logo img { height: 30px; } */
+    flex: 1;
+    display: flex;
+    justify-content: center;
 }
 
-.top-bar a, .top-bar button {
-    color: var(--color-text);
-    text-decoration: none;
-    padding: 5px 10px;
+.top-bar-logo img {
+    width: 80px;
+    height: auto;
+    object-fit: contain;
+}
+
+.top-bar a, 
+.top-bar button {
+    border: var(--pixel-border) solid var(--color-text);
+    background-color: var(--color-background);
+    padding: 8px 16px;
+    font-size: 12px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 2px 2px 0 var(--color-text);
+}
+.top-bar a:hover,
+.top-bar button:hover {
+    background-color: var(--color-accent);
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0 var(--color-text);
 }
 
 /* Tombol Pixel-Art Style */
 .pixel-button {
-    background-color: var(--color-secondary);
     border: var(--pixel-border) solid var(--color-text);
     padding: 10px 20px;
     font-family: inherit;
-    font-size: 16px;
+    font-size: 12px;
     cursor: pointer;
-    transition: background-color 0.1s;
+    background-color: var(--color-background);
+    color: var(--color-text);
     text-transform: uppercase;
+    transition: all 0.3s ease;
+    box-shadow: 2px 2px 0 var(--color-text);
 }
 
-.pixel-button:hover {
-    background-color: var(--color-primary);
+.pixel-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: var(--pixel-border) solid var(--color-text);
+    background-color: var(--color-background);
+    font-family: inherit;
+    font-size: 12px;
+    box-sizing: border-box;
 }
 
 /* Kontainer Utama */
-.container {
-    padding: 20px;
+.kotak_bg {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    max-width: 800px; /* Lebar maksimal konten */
-    margin: 20px auto;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
 }
 
 /* Form Style */
@@ -82,10 +242,32 @@ body {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
-    background-color: var(--color-background);
     border: var(--pixel-border) solid var(--color-text);
     font-family: inherit;
     font-size: 16px;
+}
+
+.card-home {
+    width: 280px;
+    background-color: var(--color-secondary);
+    border: var(--pixel-border) solid var(--color-text);
+    padding: 25px;
+    text-align: center;
+    text-decoration: none;
+    color: var(--color-text);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+
+    transition: background-color 0.2s, transform 0.2s;
+}
+.card-home h3 {
+    font-size: 20px;
+}
+.card-home p {
+    font-size: 14px;
+    line-height: 1.5;
 }
 
 .card-section {
@@ -106,18 +288,37 @@ body {
 .map-card {
     margin-bottom: 15px;
     border: var(--pixel-border) solid var(--color-text);
-    background-color: var(--color-secondary);
+    background: linear-gradient(135deg, var(--color-background) 0%, #FFFACD 100%);
+    box-shadow: 4px 4px 0 var(--color-text);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 8px;
+    overflow: hidden;
 }
-
+.container-map {
+    margin-bottom: 15px;
+    border: var(--pixel-border) solid var(--color-text);
+    background-color: var(--color-secondary);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
 .map-header {
     padding: 15px;
-    background-color: var(--color-primary);
+    background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
     cursor: pointer;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: bold;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: var(--color-background);
+    transition: background 0.3s ease;
+}
+
+.map-header:hover {
+    background: linear-gradient(90deg, var(--color-secondary) 0%, var(--color-primary) 100%);
 }
 
 .map-content {
@@ -138,15 +339,36 @@ body {
 .map-image-placeholder {
     width: 50%;
     min-height: 200px;
-    background-color: var(--color-secondary);
-    border: 2px solid var(--color-text);
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 15px;
 }
 
-.map-activities ul {
-    list-style-type: none;
+.map-image-placeholder img {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    object-fit: cover;
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
     padding: 0;
+    margin-left: auto;
+    transition: transform 0.3s ease;
+}
+
+.toggle-btn:hover {
+    transform: scale(1.1);
+}
+@media (max-width: 900px) {
+    .container-body-home {
+        flex-direction: column;
+        align-items: center;
+    }
 }

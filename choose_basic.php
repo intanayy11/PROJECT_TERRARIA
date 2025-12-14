@@ -26,6 +26,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['continue_basic'])) {
 ?>
 
 <div class="container">
+    <div class="kotak_bg">
+        <img src="assets/images/homepage.png" alt="Background Image" style="width: 100%; height: auto;">
+    </div>
+    
     <h1>Choose Your Basic</h1>
     
     <form action="choose_basic.php" method="POST" class="pixel-form" style="display: flex; gap: 20px;">
@@ -33,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['continue_basic'])) {
         <div style="flex: 1; text-align: center; border: 4px solid var(--color-text); padding: 20px; background-color: var(--color-secondary);">
             <h3>Basic Avatar</h3>
             <div id="avatar_image_display">
-                <img id="current_avatar_img" src="assets/images/default_avatar.png" alt="Basic Avatar" style="width: 100%; height: auto; border: 2px solid var(--color-text);"> </div>
+                <img id="current_avatar_img" src="assets/images/default_avatar.png" alt="Basic Avatar" style="max-width: 500px; height: auto; border: 2px solid var(--color-text); display: block; margin: 0 auto;"> </div>
             
             <input type="hidden" name="avatar_id" id="selected_avatar_id" value="<?= $avatars[0]['id'] ?? '' ?>">
             
@@ -61,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['continue_basic'])) {
         if (avatarsData.length === 0) return;
         const currentAvatar = avatarsData[currentIndex];
         
-        document.getElementById('current_avatar_img').src = `assets/images/avatar_${currentAvatar.id}.png`; // Gantii: Sesuaikan penamaan file gambar
+        document.getElementById('current_avatar_img').src = `assets/images/character${currentAvatar.id}.webp`; // Gantii: Sesuaikan penamaan file gambar
         document.getElementById('selected_avatar_id').value = currentAvatar.id;
         document.getElementById('avatar_name_display').innerText = currentAvatar.name;
         document.getElementById('skill_info_display').innerText = currentAvatar.basic_skill_info;

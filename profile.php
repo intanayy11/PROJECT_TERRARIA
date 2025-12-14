@@ -36,6 +36,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_profile'])) {
         $update_fields[] = "password_hash = '$new_password_hash'";
     }
 
+    // Handle profile photo upload
+    if (isset($_FILES['profile_photo_upload']) && $_FILES['profile_photo_upload']['error'] == UPLOAD_ERR_OK) {
+        $file_tmp = $_FILES['profile_photo_upload']['tmp_name'];
+        $file_name = basename($_FILES['profile_photo_upload']['name']);
+        $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+        $allowed_ext = ['jpg', 'jpeg', 'png', 'gif'];
+
+        if (in_array($file_ext, $allowed_ext)) {
+            $new_file_name = 'profile_' . $user_id . '.' . $file_ext;
+            $upload_path = 'assets/images/' . $new_file_name;
+
+            if (move_uploaded_file($file_tmp, $upload_path)) {
+                $update_fields[] = "profile_photo = '$upload_path'";
+            } else {
+                $_SESSION['error'] = "Gagal upload foto profil.";
+                header('Location: profile.php');
+                exit;
+            }
+        } else {
+            $_SESSION['error'] = "Format file tidak didukung. Gunakan JPG, PNG, atau GIF.";
+            header('Location: profile.php');
+            exit;
+        }
+    }
+
     $update_sql = "UPDATE users SET " . implode(', ', $update_fields) . " WHERE id = $user_id";
 
     if ($conn->query($update_sql) === TRUE) {
@@ -53,6 +78,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_profile'])) {
 ?>
 
 <div class="container">
+    <div class="kotak_bg">
+        <img src="assets/images/homepage.png" alt="Background Image" style="width: 100%; height: auto;">
+    </div>
     <h1>Edit Profile</h1>
 
     <?php if ($error): ?>
@@ -66,8 +94,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_profile'])) {
         
         <div style="flex: 1; text-align: center;">
             <div style="width: 150px; height: 150px; border-radius: 50%; background-color: var(--color-primary); margin: 0 auto 15px;">
-                <img src="<?= $user_data['profile_photo'] ?? 'assets/images/default_profile.png' ?>" alt="Profile Photo" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;"> </div>
-            <input type="file" name="profile_photo_upload" id="profile_photo_upload" style="display: none;">
+                <img id="profile_img" src="<?= $user_data['profile_photo'] ?? 'assets/images/default_profile.png' ?>" alt="Profile Photo" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;"> </div>
+            <input type="file" name="profile_photo_upload" id="profile_photo_upload" accept="image/*" style="display: none;">
             <label for="profile_photo_upload" class="pixel-button" style="padding: 5px 15px; cursor: pointer;">Change</label>
         </div>
 
@@ -85,5 +113,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_profile'])) {
         </div>
     </form>
 </div>
+
+<script>
+    document.getElementById('profile_photo_upload').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('profile_img').src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
 
 <?php get_footer(); ?>

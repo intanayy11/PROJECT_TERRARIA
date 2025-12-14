@@ -29,6 +29,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['continue_weapon'])) {
 ?>
 
 <div class="container">
+    <div class="kotak_bg">
+        <img src="assets/images/homepage.png" alt="Background Image" style="width: 100%; height: auto;">
+    </div>
     <h1>Choose Your Weapon</h1>
     
     <form action="choose_weapon.php" method="POST" class="pixel-form" style="display: flex; gap: 20px;">
@@ -38,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['continue_weapon'])) {
             
             <div id="weapon_info_display">
                 <p id="weapon_name_chosen" style="font-weight: bold; font-size: 1.2em;">Pilih Senjata</p>
-                <img id="weapon_img_chosen" src="assets/images/default_weapon.png" alt="Weapon" style="width: 80px; height: auto; margin-bottom: 10px;"> <p>Attack: <span id="attack_stat_bar" style="display:inline-block; width:100px; height:10px; background:red;"></span> <span id="attack_stat_val">0</span></p>
+                <img id="weapon_img_chosen" src="assets/images/default_weapon.png" alt="Weapon" style="max-width: 250px; height: auto; border: 2px solid var(--color-text); display: block; margin: 0 auto 10px;"> <p>Attack: <span id="attack_stat_bar" style="display:inline-block; width:100px; height:10px; background:red;"></span> <span id="attack_stat_val">0</span></p>
                 <p>Durability: <span id="durability_stat_bar" style="display:inline-block; width:100px; height:10px; background:green;"></span> <span id="durability_stat_val">0</span></p>
                 <p id="weapon_desc_chosen"></p>
 

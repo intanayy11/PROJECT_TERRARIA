@@ -50,7 +50,7 @@ function get_top_bar($active_page = 'Home') {
 
     echo '<div class="top-bar">
         <button class="pixel-button menu-toggle" style="padding: 5px 10px;">☰</button>
-        <div class="top-bar-logo">Logo</div> <a href="profile.php" class="pixel-button">Profile</a> </div>
+        <div class="top-bar-logo"><img src="assets/images/Logo.png" alt="Logo"></div> <a href="profile.php" class="pixel-button">Profile</a> </div>
     
     <div class="dropdown-menu" style="display:none; position:absolute; top:50px; left:0; background:var(--color-secondary); border:var(--pixel-border) solid var(--color-text); z-index:100;">
         <ul>';
