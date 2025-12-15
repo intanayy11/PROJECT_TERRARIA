@@ -1,10 +1,12 @@
 <?php
 include 'backend/db_config.php';
-// Logika otentikasi
 
-// Pastikan sesi build sudah ada
-if (!isset($_SESSION['current_build']['weapon_id'])) {
-    // Gantii: Arahkan kembali ke langkah 2 jika sesi hilang
+if (!isset($_SESSION['user_id'])) { 
+    header('Location: index.php'); 
+    exit;
+}
+
+if (!isset($_SESSION['current_build']['weapon_id']) || !isset($_SESSION['current_build']['avatar_id'])) {
     header('Location: choose_weapon.php'); 
     exit;
 }
@@ -12,84 +14,112 @@ if (!isset($_SESSION['current_build']['weapon_id'])) {
 get_header("Select Skills");
 get_top_bar("Build Editor");
 
-// Ambil semua skills
+$build_data = $_SESSION['current_build'];
+
+$avatar_detail = ['name' => 'N/A'];
+$weapon_detail = ['name' => 'N/A', 'attack_stat' => 'N/A'];
+
+if ($build_data['avatar_id'] > 0) {
+    $avatar_id = (int)$build_data['avatar_id'];
+    $avatar_result = $conn->query("SELECT name FROM avatars WHERE id = $avatar_id");
+    if ($avatar_result && $avatar_result->num_rows > 0) {
+        $avatar_detail = $avatar_result->fetch_assoc();
+    }
+}
+
+if ($build_data['weapon_id'] > 0) {
+    $weapon_id = (int)$build_data['weapon_id'];
+    $weapon_result = $conn->query("SELECT name, attack_stat FROM weapons WHERE id = $weapon_id");
+    if ($weapon_result && $weapon_result->num_rows > 0) {
+        $weapon_detail = $weapon_result->fetch_assoc();
+    }
+}
+
 $skills_result = $conn->query("SELECT id, name, description FROM skills");
 $all_skills = $skills_result->fetch_all(MYSQLI_ASSOC);
 
-// Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['continue_skills'])) {
     $selected_skills_ids = $_POST['skills'] ?? [];
     
     $_SESSION['current_build']['skills'] = $selected_skills_ids;
     
-    // Gantii: Arahkan ke halaman preview
     header('Location: preview_selection.php'); 
     exit;
 }
+
+$previously_selected_skills = $_SESSION['current_build']['skills'] ?? [];
+
 ?>
 
 <div class="kotak_bg">
-        <img src="assets/images/homepage.png" alt="Background Image" style="width: 100%; height: auto;">
-    </div>
+    <img src="assets/images/homepage.png" alt="Background Image" style="width: 100%; height: auto;">
+</div>
 <div class="container">
-    <h1>Select Skills</h1>
+    <h1 class="skills-title">Select Skills</h1><br>
     
     <form action="select_skills.php" method="POST" class="pixel-form" style="display: flex; gap: 20px;">
         
-        <div style="flex: 1; border: 4px solid var(--color-text); padding: 20px; background-color: var(--color-secondary);">
-            <h3>Current Build Preview</h3>
+        <div style="flex: 1; border: 4px solid var(--color-text); padding: 20px; background-color: var(--color-secondary); box-shadow: var(--pixel-shadow);">
+            <h3 class="select-title">Current Build Preview</h3><br>
             
             <div style="text-align: center; margin-bottom: 15px;">
-                <img src="assets/images/character<?= $_SESSION['current_build']['avatar_id'] ?>.webp" alt="Avatar" style="max-width: 120px; height: auto; border: 2px solid var(--color-text); display: block; margin: 0 auto 10px;">
-                <p style="font-weight: bold;">Class: <?= $_SESSION['current_build']['avatar_name'] ?? 'N/A' ?></p>
+                <img src="assets/images/character_<?= $build_data['avatar_id'] ?? 'default' ?>.png" 
+                     alt="Avatar" 
+                     style="max-width: 120px; height: auto; display: block; margin: 0 auto 10px;">
+                <p style="font-weight: bold;">Class: <?= htmlspecialchars($avatar_detail['name'] ?? 'N/A') ?></p>
             </div>
             
-            <h4>Weapon:</h4>
-            <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                <img src="assets/images/weapon_<?= $_SESSION['current_build']['weapon_id'] ?>.png" alt="Weapon" style="max-width: 80px; height: auto; border: 2px solid var(--color-text); margin-right: 10px;">
-                <p>- <?= $_SESSION['current_build']['weapon_name'] ?? 'N/A' ?> (ATK: <?= $_SESSION['current_build']['attack_stat'] ?? 'N/A' ?>)</p>
+            <h4>Weapon:</h4><br>
+            <div style="display: flex; align-items: center; margin-bottom: 10px; justify-content: center;">
+                <?php if (isset($build_data['weapon_id']) && $build_data['weapon_id'] > 0): ?>
+                    <img src="assets/images/weapon<?= $build_data['weapon_id'] ?>.png" 
+                         alt="Weapon" 
+                         style="max-width: 50px; height: auto; ; margin-right: 10px;">
+                <?php endif; ?>
+                <p>- <?= htmlspecialchars($weapon_detail['name'] ?? 'N/A') ?> (ATK: <?= htmlspecialchars($weapon_detail['attack_stat'] ?? 'N/A') ?>)</p>
             </div>
             
-            <h4>Skills Selected:</h4>
-            <div id="selected_skills_display">
-                <p>No skills selected yet.</p>
-            </div>
             
-            <button type="submit" name="continue_skills" class="pixel-button" style="margin-top: 15px;">Continue</button>
+            <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <a href="choose_weapon.php" class="pixel-button" style="text-decoration: none;"> 
+                    Back (Weapon) 
+                </a>
+                <button type="submit" name="continue_skills" class="pixel-button">
+                    Next (Preview) 
+                </button>
+            </div>
         </div>
-        
-        <div style="flex: 1; border: 4px solid var(--color-text); padding: 10px; background-color: var(--color-secondary);">
-            <h3>Skill List (Pilih > 1)</h3>
-            <table style="width: 100%; border-collapse: collapse;">
-                <thead>
-                    <tr>
-                        <th style="border-bottom: 2px solid var(--color-text); padding: 5px;">Pilih</th>
-                        <th style="border-bottom: 2px solid var(--color-text); padding: 5px;">Nama Skill</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($all_skills as $skill): ?>
-                    <tr class="skill-row" data-skill='<?= json_encode($skill) ?>' onmouseover="showSkillDetail(this)">
-                        <td style="padding: 5px; text-align: center;">
-                            <input type="checkbox" name="skills[]" value="<?= $skill['id'] ?>">
-                        </td>
-                        <td style="padding: 5px;"><?= $skill['name'] ?></td>
-                    </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
-    </form>
+<div style="flex: 1; border: 4px solid var(--color-text); padding: 10px; background-color: var(--color-secondary); box-shadow: var(--pixel-shadow); display: flex; flex-direction: column;">
+    
+    <h3 class="select-title">Skill List</h3><br>
+    <h5 class="select-title"> - Pilih Skill Lebih dari Satu -</h5><br>
+
+    <div style="overflow-y: auto; max-height: 400px; flex-grow: 1;"> 
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th style="border-bottom: 2px solid var(--color-text); padding: 5px; width: 10%;">Pilih</th>
+                    <th style="border-bottom: 2px solid var(--color-text); padding: 5px; width: 30%;">Skill</th>
+                    <th style="border-bottom: 2px solid var(--color-text); padding: 5px; text-align: left;">Deskripsi</th> </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($all_skills as $skill): ?>
+                <tr class="skill-row">
+                    <td style="padding: 5px; text-align: center; ">
+                        <input type="checkbox" name="skills[]" value="<?= $skill['id'] ?>"
+                               <?= in_array($skill['id'], $previously_selected_skills) ? 'checked' : '' ?>>
+                    </td>
+                    <td style="padding: 5px; font-size: 10px;"><?= htmlspecialchars($skill['name']) ?></td>
+                    <td style="padding: 5px; font-size: 10px;"><?= htmlspecialchars($skill['description']) ?></td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div> 
+    <br>
 </div>
-
+    
 <script>
-    function showSkillDetail(row) {
-        const skill = JSON.parse(row.getAttribute('data-skill'));
-        
-        document.getElementById('skill_name_detail').innerText = skill.name;
-        document.getElementById('skill_desc_detail').innerText = skill.description;
-    }
-
     function updateSelectedSkills() {
         const checkboxes = document.querySelectorAll('input[name="skills[]"]:checked');
         const selectedSkillsDisplay = document.getElementById('selected_skills_display');
@@ -102,21 +132,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['continue_skills'])) {
         let skillsList = '<ul>';
         checkboxes.forEach(checkbox => {
             const row = checkbox.closest('.skill-row');
-            const skill = JSON.parse(row.getAttribute('data-skill'));
-            skillsList += '<li>' + skill.name + '</li>';
+            
+            if (row) {
+                const skill = JSON.parse(row.getAttribute('data-skill')); 
+                skillsList += '<li>- ' + skill.name + '</li>'; 
+            }
         });
         skillsList += '</ul>';
         
         selectedSkillsDisplay.innerHTML = skillsList;
     }
 
-    // Add event listeners to checkboxes
     document.addEventListener('DOMContentLoaded', () => {
         const checkboxes = document.querySelectorAll('input[name="skills[]"]');
+        
         checkboxes.forEach(checkbox => {
             checkbox.addEventListener('change', updateSelectedSkills);
         });
-        updateSelectedSkills(); // Initial update
+        
+        updateSelectedSkills(); 
     });
 </script>
 

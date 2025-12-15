@@ -1,11 +1,9 @@
 <?php
 include 'backend/db_config.php';
-// Logika otentikasi
 
 get_header("Build Editor");
 get_top_bar("Build Editor");
 
-// Reset sesi build lama saat masuk ke halaman utama editor
 unset($_SESSION['current_build']); 
 ?>
 

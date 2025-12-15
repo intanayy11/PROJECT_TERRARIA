@@ -1,13 +1,11 @@
-/* assets/css/style.css */
-
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 :root {
-    --color-primary: #2E8B57; /* Hijau gelap Terraria */
-    --color-secondary: #3CB371; /* Hijau sedang */
-    --color-background: #F5F5DC; /* Beige */
-    --color-text: #2F4F2F; /* Hijau gelap teks */
-    --color-accent: #FFD700; /* Emas */
+    --color-primary: #2E8B57; 
+    --color-secondary: #3CB371;
+    --color-background: #F5F5DC; 
+    --color-text: #2F4F2F; 
+    --color-accent: #FFD700; 
     --pixel-border: 4px;
 }
 
@@ -26,9 +24,93 @@ body {
     justify-content: center; 
     align-items: center; 
     font-family: 'Press Start 2P', cursive; 
-    padding: 90px 20px 20px; /* Padding top untuk navbar */
+    padding: 90px 20px 20px; 
     color: var(--color-text);
 }
+
+.title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: var(--color-text);
+    text-shadow: 2px 2px 0 var(--color-accent);
+}
+
+.avatar-title {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: var(--color-text);
+    text-shadow: 2px 2px 0 var(--color-accent);
+}
+
+.weapon-title {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: var(--color-text);
+    text-shadow: 2px 2px 0 var(--color-accent);
+}
+.skills-title {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: var(--color-text);
+    text-shadow: 2px 2px 0 var(--color-accent);
+}
+.Basic-title {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: var(--color-text);
+    text-shadow: 2px 2px 0 var(--color-accent);
+}
+
+.Info-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--color-text);
+    text-shadow: 2px 2px 0 var(--color-accent);
+}
+
+.weap-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--color-text);
+    text-shadow: 2px 2px 0 var(--color-accent);
+}
+.select-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--color-text);
+    text-shadow: 2px 2px 0 var(--color-accent);
+}
+.preview-title {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: var(--color-text);
+    text-shadow: 2px 2px 0 var(--color-accent);
+}
+
+.profile-title {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: var(--color-text);
+    text-shadow: 2px 2px 0 var(--color-accent);
+}
+.build-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--color-text);
+    text-shadow: 2px 2px 0 var(--color-accent);
+}
+.dropdown-menu {
+    position: relative;
+    margin-top: 2em;
+}
+
 .container {
     width: 100%;
     max-width: 1200px;
@@ -43,6 +125,7 @@ body {
 h1, h2, h3 {
     font-family: 'Press Start 2P', cursive;
     color: var(--color-text);
+    line-height: 1.4; 
     text-shadow: 2px 2px 0 var(--color-accent);
 }
 .container_home {
@@ -63,8 +146,10 @@ h1, h2, h3 {
     width: 100%;
     display: flex;
     flex-direction: column;
+    line-height: 1.4; 
     justify-content: center;
     align-items: center;
+    line-height: 0.3;
 }
 .container-body-home {
     display: flex;
@@ -73,9 +158,23 @@ h1, h2, h3 {
     width: 100%;
     max-width: 1200px;
 }
+
+.container-preview {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: rgba(245, 245, 220, 0.9);
+    border: var(--pixel-border) solid var(--color-text);
+    box-shadow: 4px 4px 0 var(--color-text);
+    border-radius: 8px;
+    text-align: center;
+}
 .spasi-vertical {
-    display: flex;
+    display: contents;
+    align-items: center
     justify-content: center;
+    height: 20px;
     
 }
 .logo {
@@ -103,7 +202,6 @@ h1, h2, h3 {
 .button_container {
     display: flex;
     justify-content: center;
-    gap: 100px;
     width: 120px;
     height: auto;
     transition: transform 0.3s ease;
@@ -136,6 +234,15 @@ h1, h2, h3 {
     display: block;
 }
 
+.button_container img {
+    width: 150px; 
+    height: auto;
+    transition: transform 0.3s ease;
+    }
+.button_container a:hover img {
+    transform: scale(1.1);
+}
+
 .button_start {
     display: inline-block;
     padding: 15px 30px;
@@ -149,9 +256,11 @@ h1, h2, h3 {
     text-transform: uppercase;
     transition: all 0.3s ease;
 }
+.button_skills {
+    display: flex;
+    gap: 10px;
+}
 
-
-/* Header/Top Bar (Digunakan di homepage.php dan halaman lain setelah login) */
 .top-bar {
     position: fixed;
     top: 0;
@@ -159,7 +268,6 @@ h1, h2, h3 {
     height: 70px;
     width: 100%;
     background: rgba(46, 139, 87, 0.8); /* Transparan hijau */
-    backdrop-filter: blur(10px); /* Blur effect untuk modern */
     border-bottom: var(--pixel-border) solid var(--color-text);
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
     display: flex;
@@ -176,7 +284,7 @@ h1, h2, h3 {
 }
 
 .top-bar-logo img {
-    width: 80px;
+    width: 160px;
     height: auto;
     object-fit: contain;
 }
@@ -224,7 +332,6 @@ h1, h2, h3 {
     box-sizing: border-box;
 }
 
-/* Kontainer Utama */
 .kotak_bg {
     position: fixed;
     top: 0;
@@ -235,7 +342,38 @@ h1, h2, h3 {
     overflow: hidden;
 }
 
-/* Form Style */
+.auth-wrapper {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.logo {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    margin: 50px auto 20px auto; 
+}
+
+.pixel-button:hover {
+    background-color: var(--color-accent);
+    transform: translate(-2px, -2px); 
+    box-shadow: 4px 4px 0 var(--color-text);
+}
+
+.index-page-content {
+    width: 100%;
+    max-width: 400px; 
+    margin: 80px auto 0 auto; 
+    text-align: center;
+    padding: 0; 
+    border: none;
+    box-shadow: none;
+    background: none; 
+}
+
 .pixel-form input[type="text"],
 .pixel-form input[type="email"],
 .pixel-form input[type="password"] {
@@ -284,7 +422,6 @@ h1, h2, h3 {
     background-color: var(--color-primary);
 }
 
-/* Map Accordion Style (untuk maps.php) */
 .map-card {
     margin-bottom: 15px;
     border: var(--pixel-border) solid var(--color-text);
@@ -310,11 +447,16 @@ h1, h2, h3 {
     cursor: pointer;
     font-size: 14px;
     font-weight: bold;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     color: var(--color-background);
     transition: background 0.3s ease;
+}
+
+.map-header .map-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 5px;
+    margin-bottom: 2em;
 }
 
 .map-header:hover {
@@ -324,7 +466,7 @@ h1, h2, h3 {
 .map-content {
     display: none;
     padding: 20px;
-    background-color: var(--color-background); /* Ganti: Background maps akan berubah */
+    background-color: var(--color-background); 
 }
 
 .map-content.active {
